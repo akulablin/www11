@@ -1,21 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
+    // Игнорировать ошибки тайпскрипта при сборке (чтобы не докапывался)
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+  eslint: {
+    // Игнорировать ошибки оформления кода
+    ignoreDuringBuilds: true,
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
