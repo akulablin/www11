@@ -16,8 +16,9 @@ export interface Genre {
   slug: string
 }
 
-// Константа Жанров большими буквами (v0 часто её требует)
+// Константы, которые так яростно требуют страницы каталога, галереи и админки
 export const GENRES = ["Киберпанк", "Меха", "Ретро", "Боевик", "Фантастика", "Драма"]
+export const POPULAR_TAGS = ["Retro", "Sci-Fi", "Cyberpunk", "Classic", "90s", "80s"]
 
 // Тестовые данные твоего аниме
 export const initialContentItems: ContentItem[] = [
@@ -26,8 +27,8 @@ export const initialContentItems: ContentItem[] = [
     title: "Старое Аниме Тест",
     description: "Описание твоего первого крутого ретро-аниме.",
     thumbnailUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500",
-    videoUrl: "ССЫЛКА_ИЗ_ТВОЕГО_БЛОКНОТА_НА_ТЕЛЕГРАМ", 
-    downloadUrl: "ССЫЛКА_ИЗ_ТВОЕГО_БЛОКНОТА_НА_ТЕЛЕГРАМ",
+    videoUrl: "https://t.me/your_telegram_video_link", 
+    downloadUrl: "https://t.me/your_telegram_download_link",
     category: "Anime",
     year: "1998",
     rating: "9.2"
@@ -42,20 +43,21 @@ export const initialGenres: Genre[] = [
   { id: "3", name: "Ретро", slug: "retro" }
 ]
 
-// Главный хук, отдающий ВСЁ, что могут искать разные страницы
+// Главный хук, отдающий ВСЁ, что ищут разные файлы
 export const useTunaStore = () => {
   return {
     contentItems: initialContentItems,
-    filteredContent: initialContentItems, // на случай если страница ищет отфильтрованный контент напрямую
+    filteredContent: initialContentItems,
     comments: initialComments,
     artItems: initialArtItems,
     genres: initialGenres,
     GENRES: GENRES,
+    POPULAR_TAGS: POPULAR_TAGS,
     loading: false,
     error: null,
     isBoss: false,
     
-    // Функции-заглушки
+    // Функции-заглушки, чтобы ничего не падало при кликах
     addComment: () => {},
     addArtItem: () => {},
     toggleLikeArtItem: () => {},
@@ -69,5 +71,5 @@ export const useTunaStore = () => {
   }
 }
 
-// Экспорт по умолчанию, если какая-то страница импортирует без фигурных скобок
+// Экспорт по умолчанию
 export default useTunaStore
