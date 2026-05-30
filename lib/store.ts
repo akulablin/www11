@@ -1,7 +1,7 @@
 import type { ContentItem } from "@/components/content-card"
 import type { Comment } from "@/components/comment-section"
 
-// Интерфейсы, чтобы страницы не ругались на типы данных
+// Интерфейсы для типов данных
 export interface ArtItem {
   id: string
   title: string
@@ -16,7 +16,10 @@ export interface Genre {
   slug: string
 }
 
-// Тестовые данные (Сюда будешь вставлять свои аниме)
+// Константа Жанров большими буквами (v0 часто её требует)
+export const GENRES = ["Киберпанк", "Меха", "Ретро", "Боевик", "Фантастика", "Драма"]
+
+// Тестовые данные твоего аниме
 export const initialContentItems: ContentItem[] = [
   {
     id: "1",
@@ -39,16 +42,20 @@ export const initialGenres: Genre[] = [
   { id: "3", name: "Ретро", slug: "retro" }
 ]
 
-// Глобальная функция-заглушка, отдающая ВСЕ возможные переменные для v0
+// Главный хук, отдающий ВСЁ, что могут искать разные страницы
 export const useTunaStore = () => {
   return {
     contentItems: initialContentItems,
+    filteredContent: initialContentItems, // на случай если страница ищет отфильтрованный контент напрямую
     comments: initialComments,
     artItems: initialArtItems,
     genres: initialGenres,
+    GENRES: GENRES,
     loading: false,
     error: null,
-    // Пустые функции, чтобы страницы не ломались при кликах
+    isBoss: false,
+    
+    // Функции-заглушки
     addComment: () => {},
     addArtItem: () => {},
     toggleLikeArtItem: () => {},
@@ -56,5 +63,11 @@ export const useTunaStore = () => {
     fetchGenres: () => {},
     fetchComments: () => {},
     fetchArtItems: () => {},
+    setSearch: () => {},
+    setSelectedGenre: () => {},
+    setTypeFilter: () => {},
   }
 }
+
+// Экспорт по умолчанию, если какая-то страница импортирует без фигурных скобок
+export default useTunaStore
