@@ -10,7 +10,7 @@ export interface ArtItem {
   likes: number
 }
 
-// Простой список аниме прямо в коде (вместо Supabase)
+// Простой список аниме прямо в коде
 export const initialContentItems: ContentItem[] = [
   {
     id: "1",
@@ -27,3 +27,15 @@ export const initialContentItems: ContentItem[] = [
 
 export const initialComments: Record<string, Comment[]> = {}
 export const initialArtItems: ArtItem[] = []
+
+// Возвращаем функцию-заглушку, чтобы другие страницы (например, донаты) не выдавали ошибку
+export const useTunaStore = () => {
+  return {
+    contentItems: initialContentItems,
+    comments: initialComments,
+    artItems: initialArtItems,
+    addComment: () => {},
+    addArtItem: () => {},
+    toggleLikeArtItem: () => {},
+  }
+}
