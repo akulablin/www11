@@ -1,3 +1,4 @@
+import { create } from 'zustand'
 import type { ContentItem } from "@/components/content-card"
 import type { Comment } from "@/components/comment-section"
 
@@ -38,6 +39,55 @@ export const initialContentItems: ContentItem[] = [
     date: "1998-01-01"
   }
 ]
+
+export const initialArtItems: ArtItem[] = [
+  {
+    id: "1",
+    title: "Ретро Арт Тест",
+    imageUrl: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500",
+    artist: "Admin",
+    likes: 12,
+    views: 100,
+    tags: ["Retro", "Cyberpunk"],
+    created_at: new Date().toISOString(),
+    createdAt: new Date().toISOString()
+  }
+]
+
+export const initialGenres: Genre[] = [
+  { id: "1", name: "Киберпанк", slug: "cyberpunk" },
+  { id: "2", name: "Меха", slug: "mecha" },
+  { id: "3", name: "Ретро", slug: "retro" }
+]
+
+// Создаем реальное Zustand-хранилище, защищенное от undefined
+export const useTunaStore = create((set) => ({
+  contentItems: initialContentItems || [],
+  filteredContent: initialContentItems || [],
+  comments: {} as Record<string, Comment[]>,
+  artItems: initialArtItems || [],
+  genres: initialGenres || [],
+  GENRES: GENRES || [],
+  POPULAR_TAGS: POPULAR_TAGS || [],
+  loading: false,
+  error: null,
+  isBoss: false,
+  
+  addComment: () => {},
+  addArtItem: () => {},
+  toggleLikeArtItem: () => {},
+  fetchContentItems: () => initialContentItems || [],
+  fetchGenres: () => initialGenres || [],
+  fetchComments: () => ({}),
+  fetchArtItems: () => initialArtItems || [],
+  setSearch: () => {},
+  setSelectedGenre: () => {},
+  setTypeFilter: () => {},
+}))
+
+// На случай, если страницы вызывают его как обычный хук (типа useTunaStore.getState() или простоuseTunaStore())
+const defaultExport = useTunaStore;
+export default defaultExport;
 
 export const initialComments: Record<string, Comment[]> = {}
 export const initialArtItems: ArtItem[] = [
